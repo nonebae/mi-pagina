@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulador de Calorimetría</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .image-container {
+      flex: 1;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .form-container {
+      flex: 1;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 25px;
+      background-color: #e2f3e2;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .result h3 {
+      margin-top: 0;
+    }
+
+    .result p {
+      margin: 5px 0;
+    }
+.positivo {
+  color: green;
+}
+.negativo {
+  color: red;
+}
+
+  </style>
+</head>
+<body>
+
+<h1>Simulador de Calorimetría</h1>
+
+<div class="container">
+  <!-- Imagen del calorímetro -->
+  <div class="image-container">
+    <img id="imagenCalorimetro" src="Calorimetro.png" alt="Calorímetro" />
+  </div>
+
+  <!-- Formulario y resultados -->
+  <div class="form-container">
+    <form id="simuladorForm">
+     <label for="m1">Masa del Metal (kg):</label>
+<input type="number" id="m1" required step="any" min="0.001">
+
+
+      
+
+
+      <label for="Ti1">Temperatura inicial del Metal (°C):</label>
+      <input type="number" id="Ti1" required>
+
+<label for="m2">Masa del Agua (kg):</label>
+<input type="number" id="m2" required step="any" min="0.001">
+
+
+      <label for="c2">Calor específico del Agua (J/kg°C):</label>
+      <input type="number" id="c2" required readonly>
+
+      <label for="Ti2">Temperatura inicial del Agua (°C):</label>
+      <input type="number" id="Ti2" required>
+
+     <label for="metal">Selecciona el Metal:</label>
+<select id="metal" required>
+  <option value="Calorimetro">-- Selecciona --</option>
+  <option value="Aluminio">Aluminio</option>
+  <option value="Cobre">Cobre</option>
+  <option value="Hierro">Hierro</option>
+  <option value="Oro">Oro</option>
+  <option value="Plata">Plata</option>
+  <option value="Zinc">Zinc</option>
+</select>
+
+<label for="c1">Calor específico del Metal (J/kg°C):</label>
+<input type="number" id="c1" required readonly>
+
+      <button type="submit">Calcular</button>
+
+
+    </form>
+
+    <div class="result" id="outputSection">
+
+      <h3>Resultados:</h3>
+
+  <p id="tempEquilibrio"></p> <!-- <-- Mueve esto aquí -->
+      <table>
+  <tr><th>Magnitud</th><th>Metal</th><th>Agua</th></tr>
+  <tr><td>ΔH (J)</td><td id="deltaHMetal"></td><td id="deltaHAgua"></td></tr>
+  <tr><td>ΔU (J)</td><td id="deltaUMetal"></td><td id="deltaUAgua"></td></tr>
+  <tr><td>Calor transferido</td><td id="calorMetal"></td><td id="calorAgua"></td></tr>
+</table>
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const imagenCalorimetro = document.getElementById("imagenCalorimetro");
+  const selectorMetal = document.getElementById("metal");
+
+  // Cambiar imagen cuando se selecciona el metal
+const caloresEspecificos = {
+    "Cobre": 385,
+    "Hierro": 449,
+    "Aluminio": 900,
+    "Oro": 129,
+    "Plata": 235,
+    "Zinc": 387
+};
+
+document.getElementById("metal").addEventListener("change", function () {
+    const metalSeleccionado = this.value;
+    document.getElementById("c1").value = caloresEspecificos[metalSeleccionado];
+    changeObjectColor(metalSeleccionado);
+});
+
+// Inicializar al cargar la página
+document.addEventListener("DOMContentLoaded", function () {
+    const metalInicial = document.getElementById("metal").value;
+    document.getElementById("c1").value = caloresEspecificos[metalInicial];
+    document.getElementById("c2").value = 4186; // Calor específico del agua
+
+});
+  selectorMetal.addEventListener("change", () => {
+    const metal = selectorMetal.value;
+    imagenCalorimetro.src = metal + ".png";
+  });
+
+  document.getElementById("simuladorForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const m1 = parseFloat(document.getElementById("m1").value);
+    const c1 = parseFloat(document.getElementById("c1").value);
+    const Ti1 = parseFloat(document.getElementById("Ti1").value);
+    const m2 = parseFloat(document.getElementById("m2").value);
+    const c2 = parseFloat(document.getElementById("c2").value);
+    const Ti2 = parseFloat(document.getElementById("Ti2").value);
+
+    const Tf = (m1 * c1 * Ti1 + m2 * c2 * Ti2) / (m1 * c1 + m2 * c2);
+document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibrio: " + Tf.toFixed(2) + " °C";
+
+    const deltaH1 = m1 * c1 * (Tf - Ti1);
+    const deltaH2 = m2 * c2 * (Tf - Ti2);
+    const deltaU1 = deltaH1;
+    const deltaU2 = deltaH2;
+
+    // Mostrar resultados
+  document.getElementById("calorMetal").textContent = "Calor transferido al metal: " + (deltaH1 / 1000).toFixed(2) + " kJ";
+document.getElementById("calorAgua").textContent = "Calor transferido al agua: " + (deltaH2 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaHMetal").textContent = "ΔH (Metal): " + (deltaH1 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaHAgua").textContent = "ΔH (Agua): " + (deltaH2 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaUMetal").textContent = "ΔU (Metal): " + (deltaU1 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaUAgua").textContent = "ΔU (Agua): " + (deltaU2 / 1000).toFixed(2) + " kJ";
+
+document.getElementById("deltaHMetal").className = deltaH1 < 0 ? 'negativo' : 'positivo';
+document.getElementById("deltaHAgua").className = deltaH2 < 0 ? 'negativo' : 'positivo';
+document.getElementById("deltaUMetal").className = deltaU1 < 0 ? 'negativo' : 'positivo';
+document.getElementById("deltaUAgua").className = deltaU2 < 0 ? 'negativo' : 'positivo';
+
+
+    // Mostrar resultados
+    document.getElementById("outputSection").style.display = "block";
+  });
+</script>
+
+</body>
+</html>
