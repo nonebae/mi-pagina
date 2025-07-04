@@ -124,7 +124,7 @@
 
 
       <label for="c2">Calor específico del Agua (J/kg°C):</label>
-<input type="number" id="c2" required readonly value="4186">
+      <input type="number" id="c2" required readonly>
 
       <label for="Ti2">Temperatura inicial del Agua (°C):</label>
       <input type="number" id="Ti2" required>
@@ -138,10 +138,6 @@
   <option value="Oro">Oro</option>
   <option value="Plata">Plata</option>
   <option value="Zinc">Zinc</option>
-  <option value="Carbono">Carbono (no metal)</option>
-<option value="Azufre">Azufre (no metal)</option>
-<option value="Fósforo">Fósforo (no metal)</option>
-
 </select>
 
 <label for="c1">Calor específico del Metal (J/kg°C):</label>
@@ -181,9 +177,6 @@ const caloresEspecificos = {
     "Oro": 129,
     "Plata": 235,
     "Zinc": 387
-  "Carbono": 710,   // (grafito)
-    "Azufre": 706,
-    "Fósforo": 770
 };
 
 document.getElementById("metal").addEventListener("change", function () {
@@ -195,17 +188,9 @@ document.getElementById("metal").addEventListener("change", function () {
 // Inicializar al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
     const metalInicial = document.getElementById("metal").value;
-    const c1Input = document.getElementById("c1");
+    document.getElementById("c1").value = caloresEspecificos[metalInicial];
+    document.getElementById("c2").value = 4186; // Calor específico del agua
 
-    // Solo asignar si el valor es válido
-    if (caloresEspecificos[metalInicial]) {
-        c1Input.value = caloresEspecificos[metalInicial];
-    } else {
-        c1Input.value = '';
-    }
-
-    // Valor por defecto del agua
-    document.getElementById("c2").value = 4186;
 });
   selectorMetal.addEventListener("change", () => {
     const metal = selectorMetal.value;
@@ -248,9 +233,6 @@ document.getElementById("deltaUAgua").className = deltaU2 < 0 ? 'negativo' : 'po
     document.getElementById("outputSection").style.display = "block";
   });
 </script>
-<footer style="text-align:center; margin-top: 40px; color: #666; font-size: 14px;">
-  Autores: Michelle Cruz, Nicole Gortaire, John Guamán
-</footer>
 
 </body>
 </html>
