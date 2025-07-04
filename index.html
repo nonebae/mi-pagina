@@ -124,7 +124,7 @@
 
 
       <label for="c2">Calor específico del Agua (J/kg°C):</label>
-      <input type="number" id="c2" required readonly>
+<input type="number" id="c2" required readonly value="4186">
 
       <label for="Ti2">Temperatura inicial del Agua (°C):</label>
       <input type="number" id="Ti2" required>
@@ -195,9 +195,17 @@ document.getElementById("metal").addEventListener("change", function () {
 // Inicializar al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
     const metalInicial = document.getElementById("metal").value;
-    document.getElementById("c1").value = caloresEspecificos[metalInicial];
-    document.getElementById("c2").value = 4186; // Calor específico del agua
+    const c1Input = document.getElementById("c1");
 
+    // Solo asignar si el valor es válido
+    if (caloresEspecificos[metalInicial]) {
+        c1Input.value = caloresEspecificos[metalInicial];
+    } else {
+        c1Input.value = '';
+    }
+
+    // Valor por defecto del agua
+    document.getElementById("c2").value = 4186;
 });
   selectorMetal.addEventListener("change", () => {
     const metal = selectorMetal.value;
