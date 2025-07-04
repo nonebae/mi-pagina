@@ -138,6 +138,10 @@
   <option value="Oro">Oro</option>
   <option value="Plata">Plata</option>
   <option value="Zinc">Zinc</option>
+  <option value="Carbono">Carbono (no metal)</option>
+<option value="Azufre">Azufre (no metal)</option>
+<option value="Fósforo">Fósforo (no metal)</option>
+
 </select>
 
 <label for="c1">Calor específico del Metal (J/kg°C):</label>
@@ -177,6 +181,9 @@ const caloresEspecificos = {
     "Oro": 129,
     "Plata": 235,
     "Zinc": 387
+  "Carbono": 710,   // (grafito)
+    "Azufre": 706,
+    "Fósforo": 770
 };
 
 document.getElementById("metal").addEventListener("change", function () {
