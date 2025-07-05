@@ -243,10 +243,10 @@ document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibr
     // Mostrar resultados
   document.getElementById("calorMetal").textContent =  (deltaH1 / 1000).toFixed(2) + " kJ";
 document.getElementById("calorAgua").textContent =  (deltaH2 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaHMetal").textContent = "ΔH (Metal): " + (deltaH1 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaHAgua").textContent = "ΔH (Agua): " + (deltaH2 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaUMetal").textContent = "ΔU (Metal): " + (deltaU1 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaUAgua").textContent = "ΔU (Agua): " + (deltaU2 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaHMetal").textContent =  (deltaH1 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaHAgua").textContent =  (deltaH2 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaUMetal").textContent =  (deltaU1 / 1000).toFixed(2) + " kJ";
+document.getElementById("deltaUAgua").textContent = (deltaU2 / 1000).toFixed(2) + " kJ";
 
 document.getElementById("deltaHMetal").className = deltaH1 < 0 ? 'negativo' : 'positivo';
 document.getElementById("deltaHAgua").className = deltaH2 < 0 ? 'negativo' : 'positivo';
