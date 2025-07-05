@@ -207,7 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
   selectorMetal.addEventListener("change", () => {
     const metal = selectorMetal.value;
-   imagenCalorimetro.src = "imagenes/" + metal.toLowerCase() + ".png";
+  imagenCalorimetro.src = metal + ".png";
+
 
   });
 
