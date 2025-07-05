@@ -109,14 +109,14 @@
   <!-- Formulario y resultados -->
   <div class="form-container">
     <form id="simuladorForm">
-     <label for="m1">Masa del Metal (kg):</label>
+     <label for="m1">Masa del Material (kg):</label>
 <input type="number" id="m1" required step="any" min="0.001">
 
 
       
 
 
-      <label for="Ti1">Temperatura inicial del Metal (°C):</label>
+      <label for="Ti1">Temperatura inicial del Material (°C):</label>
       <input type="number" id="Ti1" required>
 
 <label for="m2">Masa del Agua (kg):</label>
@@ -129,7 +129,7 @@
       <label for="Ti2">Temperatura inicial del Agua (°C):</label>
       <input type="number" id="Ti2" required>
 
-     <label for="metal">Selecciona el Metal:</label>
+     <label for="metal">Selecciona el Material:</label>
 <select id="metal" required>
   <option value="Calorimetro">-- Selecciona --</option>
   <option value="Aluminio">Aluminio</option>
@@ -138,9 +138,16 @@
   <option value="Oro">Oro</option>
   <option value="Plata">Plata</option>
   <option value="Zinc">Zinc</option>
+  </optgroup>
+  <optgroup label="No metales">
+    <option value="Carbono">Carbono</option>
+    <option value="Azufre">Azufre</option>
+    <option value="Fosforo">Fósforo</option>
+    <option value="Yodo">Yodo</option>
+  </optgroup>
 </select>
 
-<label for="c1">Calor específico del Metal (J/kg°C):</label>
+<label for="c1">Calor específico del Material (J/kg°C):</label>
 <input type="number" id="c1" required readonly>
 
       <button type="submit">Calcular</button>
@@ -177,6 +184,10 @@ const caloresEspecificos = {
     "Oro": 129,
     "Plata": 235,
     "Zinc": 387
+  "Carbono": 710,
+"Azufre": 710,
+"Fosforo": 770,
+"Yodo": 214
 };
 
 document.getElementById("metal").addEventListener("change", function () {
@@ -216,7 +227,7 @@ document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibr
     const deltaU2 = deltaH2;
 
     // Mostrar resultados
-  document.getElementById("calorMetal").textContent = "Calor transferido al metal: " + (deltaH1 / 1000).toFixed(2) + " kJ";
+  document.getElementById("calorMetal").textContent = "Calor transferido (Q): " + (deltaH1 / 1000).toFixed(2) + " kJ";
 document.getElementById("calorAgua").textContent = "Calor transferido al agua: " + (deltaH2 / 1000).toFixed(2) + " kJ";
 document.getElementById("deltaHMetal").textContent = "ΔH (Metal): " + (deltaH1 / 1000).toFixed(2) + " kJ";
 document.getElementById("deltaHAgua").textContent = "ΔH (Agua): " + (deltaH2 / 1000).toFixed(2) + " kJ";
