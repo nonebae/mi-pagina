@@ -241,8 +241,8 @@ document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibr
     const deltaU2 = deltaH2;
 
     // Mostrar resultados
-  document.getElementById("calorMetal").textContent = "Calor transferido (Q): " + (deltaH1 / 1000).toFixed(2) + " kJ";
-document.getElementById("calorAgua").textContent = "Calor transferido al agua: " + (deltaH2 / 1000).toFixed(2) + " kJ";
+  document.getElementById("calorMetal").textContent =  (deltaH1 / 1000).toFixed(2) + " kJ";
+document.getElementById("calorAgua").textContent =  (deltaH2 / 1000).toFixed(2) + " kJ";
 document.getElementById("deltaHMetal").textContent = "ΔH (Metal): " + (deltaH1 / 1000).toFixed(2) + " kJ";
 document.getElementById("deltaHAgua").textContent = "ΔH (Agua): " + (deltaH2 / 1000).toFixed(2) + " kJ";
 document.getElementById("deltaUMetal").textContent = "ΔU (Metal): " + (deltaU1 / 1000).toFixed(2) + " kJ";
