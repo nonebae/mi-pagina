@@ -4,25 +4,74 @@
   <meta charset="UTF-8" />
   <title>Simulador de Calorimetría</title>
   <style>
- 
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-image: url('fondo.jpg');
+      background-size: cover;
+      background-attachment: fixed;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px 30px;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .header img {
+      max-height: 80px;
+    }
+
+    .header-center {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .header-center h2 {
+      margin: 5px 0 0;
+      font-size: 24px;
+    }
+
+    .header-center p {
+      margin: 5px 0;
+      font-style: italic;
+      color: #333;
+    }
+
+    .info {
+      text-align: center;
+      margin: 10px auto;
+      background-color: rgba(255,255,255,0.9);
+      padding: 10px;
+      max-width: 600px;
+      border-radius: 8px;
+    }
+
+    .info p {
+      margin: 5px;
+    }
+
+    .info b {
+      color: #222;
     }
 
     h1 {
       text-align: center;
-      color: #333;
+      color: #fff;
+      margin: 30px 0 20px;
+      text-shadow: 1px 1px 3px #000;
     }
 
     .container {
       max-width: 1000px;
-      margin: 0 auto;
-      background-color: white;
+      margin: 0 auto 40px;
+      background-color: rgba(255,255,255,0.95);
       padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       display: flex;
       gap: 30px;
@@ -87,139 +136,144 @@
     .result p {
       margin: 5px 0;
     }
-.positivo {
-  color: green;
-}
-.negativo {
-  color: red;
-}
+
+    .positivo {
+      color: green;
+    }
+
+    .negativo {
+      color: red;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
 
   </style>
 </head>
 <body>
 
+  <!-- ENCABEZADO CON LOGOS Y SUBTÍTULO -->
+  <div class="header">
+    <img src="logo.png" alt="Logo Universidad">
+    
+    <div class="header-center">
+      <h2>Universidad de las Fuerzas Armadas - ESPE</h2>
+      <p>Departamento de Ciencias Exactas</p>
+    </div>
 
-  <header style="text-align: center; margin-bottom: 20px;">
-  <img src="logo.png" alt="Logo de la Universidad" style="max-width: 120px; display: block; margin: 0 auto;">
-  <h2 style="margin: 10px 0;">Universidad de Las Fuerzas Armadas - ESPE</h2>
-  <p>Autores: Michelle Cruz, Nicole Gortaire, John Guamán</p>
-  <p>Docente: Ing. Raquel Zúñiga</p>
-  <p>Año: 2025</p>
-</header>
-
-
-<h1>Simulador de Calorimetría</h1>
-
-<div class="container">
-  <!-- Imagen del calorímetro -->
-  <div class="image-container">
-    <img id="imagenCalorimetro" src="Calorimetro.png" alt="Calorímetro" />
+    <img src="logo-exactas.png" alt="Logo Ciencias Exactas">
   </div>
 
-  <!-- Formulario y resultados -->
-  <div class="form-container">
-    <form id="simuladorForm">
-     <label for="m1">Masa del Material (kg):</label>
-<input type="number" id="m1" required step="any" min="0.001">
+  <!-- INFORMACIÓN DE AUTORES Y DOCENTE -->
+  <div class="info">
+    <p><b>Autores:</b> Michelle Cruz, Nicole Gortaire, John Guamán</p>
+    <p><b>Docente:</b> Ing. Raquel Zúñiga</p>
+    <p><b>Año:</b> 2025</p>
+  </div>
 
+  <!-- TÍTULO PRINCIPAL -->
+  <h1>Simulador de Calorimetría</h1>
 
-      
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="container">
+    <div class="image-container">
+      <img id="imagenCalorimetro" src="Calorimetro.png" alt="Calorímetro" />
+    </div>
 
+    <div class="form-container">
+      <form id="simuladorForm">
+        <label for="m1">Masa del Material (kg):</label>
+        <input type="number" id="m1" required step="any" min="0.001">
 
-      <label for="Ti1">Temperatura inicial del Material (°C):</label>
-      <input type="number" id="Ti1" required>
+        <label for="Ti1">Temperatura inicial del Material (°C):</label>
+        <input type="number" id="Ti1" required>
 
-<label for="m2">Masa del Agua (kg):</label>
-<input type="number" id="m2" required step="any" min="0.001">
+        <label for="m2">Masa del Agua (kg):</label>
+        <input type="number" id="m2" required step="any" min="0.001">
 
+        <label for="c2">Calor específico del Agua (J/kg°C):</label>
+        <input type="number" id="c2" required readonly>
 
-      <label for="c2">Calor específico del Agua (J/kg°C):</label>
-      <input type="number" id="c2" required readonly>
+        <label for="Ti2">Temperatura inicial del Agua (°C):</label>
+        <input type="number" id="Ti2" required>
 
-      <label for="Ti2">Temperatura inicial del Agua (°C):</label>
-      <input type="number" id="Ti2" required>
+        <label for="metal">Selecciona el Material:</label>
+        <select id="metal" required>
+          <option value="Calorimetro">-- Selecciona --</option>
+          <optgroup label="Metales">
+            <option value="Aluminio">Aluminio</option>
+            <option value="Cobre">Cobre</option>
+            <option value="Hierro">Hierro</option>
+            <option value="Oro">Oro</option>
+            <option value="Plata">Plata</option>
+            <option value="Zinc">Zinc</option>
+          </optgroup>
+          <optgroup label="No metales">
+            <option value="Carbono">Carbono</option>
+            <option value="Azufre">Azufre</option>
+            <option value="Fosforo">Fósforo</option>
+            <option value="Yodo">Yodo</option>
+          </optgroup>
+        </select>
 
-     <label for="metal">Selecciona el Material:</label>
-<select id="metal" required>
-  <option value="Calorimetro">-- Selecciona --</option>
-  <optgroup label="Metales">
-    <option value="Aluminio">Aluminio</option>
-    <option value="Cobre">Cobre</option>
-    <option value="Hierro">Hierro</option>
-    <option value="Oro">Oro</option>
-    <option value="Plata">Plata</option>
-    <option value="Zinc">Zinc</option>
-  </optgroup>
-  <optgroup label="No metales">
-    <option value="Carbono">Carbono</option>
-    <option value="Azufre">Azufre</option>
-    <option value="Fosforo">Fósforo</option>
-    <option value="Yodo">Yodo</option>
-  </optgroup>
-</select>
+        <label for="c1">Calor específico del Material (J/kg°C):</label>
+        <input type="number" id="c1" required readonly>
 
+        <button type="submit">Calcular</button>
+      </form>
 
-<label for="c1">Calor específico del Material (J/kg°C):</label>
-<input type="number" id="c1" required readonly>
-
-      <button type="submit">Calcular</button>
-
-
-    </form>
-
-    <div class="result" id="outputSection">
-
-      <h3>Resultados:</h3>
-
-  <p id="tempEquilibrio"></p> <!-- <-- Mueve esto aquí -->
-      <table>
-  <tr><th>Magnitud</th><th>Material</th><th>Agua</th></tr>
-  <tr><td>ΔH (kJ)</td><td id="deltaHMetal"></td><td id="deltaHAgua"></td></tr>
-  <tr><td>ΔU (kJ)</td><td id="deltaUMetal"></td><td id="deltaUAgua"></td></tr>
-  <tr><td>Calor transferido Q</td><td id="calorMetal"></td><td id="calorAgua"></td></tr>
-</table>
-
-
+      <div class="result" id="outputSection">
+        <h3>Resultados:</h3>
+        <p id="tempEquilibrio"></p>
+        <table>
+          <tr><th>Magnitud</th><th>Material</th><th>Agua</th></tr>
+          <tr><td>ΔH (kJ)</td><td id="deltaHMetal"></td><td id="deltaHAgua"></td></tr>
+          <tr><td>ΔU (kJ)</td><td id="deltaUMetal"></td><td id="deltaUAgua"></td></tr>
+          <tr><td>Calor transferido Q</td><td id="calorMetal"></td><td id="calorAgua"></td></tr>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
 <script>
   const imagenCalorimetro = document.getElementById("imagenCalorimetro");
   const selectorMetal = document.getElementById("metal");
 
-  // Cambiar imagen cuando se selecciona el metal
-const caloresEspecificos = {
+  const caloresEspecificos = {
     "Cobre": 385,
     "Hierro": 449,
     "Aluminio": 900,
     "Oro": 129,
     "Plata": 235,
     "Zinc": 387,
-  "Carbono": 709,
-"Azufre": 710,
-"Fosforo": 740,
-"Yodo": 214
-};
+    "Carbono": 709,
+    "Azufre": 710,
+    "Fosforo": 740,
+    "Yodo": 214
+  };
 
-document.getElementById("metal").addEventListener("change", function () {
-    const metalSeleccionado = this.value;
-    document.getElementById("c1").value = caloresEspecificos[metalSeleccionado];
-    changeObjectColor(metalSeleccionado);
-});
-
-// Inicializar al cargar la página
-document.addEventListener("DOMContentLoaded", function () {
-    const metalInicial = document.getElementById("metal").value;
-    document.getElementById("c1").value = caloresEspecificos[metalInicial];
-    document.getElementById("c2").value = 4186; // Calor específico del agua
-
-});
   selectorMetal.addEventListener("change", () => {
     const metal = selectorMetal.value;
-  imagenCalorimetro.src = metal + ".png";
+    document.getElementById("c1").value = caloresEspecificos[metal];
+    imagenCalorimetro.src = metal + ".png";
+  });
 
-
+  document.addEventListener("DOMContentLoaded", () => {
+    const metalInicial = selectorMetal.value;
+    document.getElementById("c1").value = caloresEspecificos[metalInicial];
+    document.getElementById("c2").value = 4186;
   });
 
   document.getElementById("simuladorForm").addEventListener("submit", function(event) {
@@ -233,28 +287,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const Ti2 = parseFloat(document.getElementById("Ti2").value);
 
     const Tf = (m1 * c1 * Ti1 + m2 * c2 * Ti2) / (m1 * c1 + m2 * c2);
-document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibrio: " + Tf.toFixed(2) + " °C";
+    document.getElementById("tempEquilibrio").textContent = "Temperatura de equilibrio: " + Tf.toFixed(2) + " °C";
 
     const deltaH1 = m1 * c1 * (Tf - Ti1);
     const deltaH2 = m2 * c2 * (Tf - Ti2);
     const deltaU1 = deltaH1;
     const deltaU2 = deltaH2;
 
-    // Mostrar resultados
-  document.getElementById("calorMetal").textContent =  (deltaH1 / 1000).toFixed(2) + " kJ";
-document.getElementById("calorAgua").textContent =  (deltaH2 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaHMetal").textContent =  (deltaH1 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaHAgua").textContent =  (deltaH2 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaUMetal").textContent =  (deltaU1 / 1000).toFixed(2) + " kJ";
-document.getElementById("deltaUAgua").textContent = (deltaU2 / 1000).toFixed(2) + " kJ";
+    document.getElementById("calorMetal").textContent = (deltaH1 / 1000).toFixed(2) + " kJ";
+    document.getElementById("calorAgua").textContent = (deltaH2 / 1000).toFixed(2) + " kJ";
+    document.getElementById("deltaHMetal").textContent = (deltaH1 / 1000).toFixed(2) + " kJ";
+    document.getElementById("deltaHAgua").textContent = (deltaH2 / 1000).toFixed(2) + " kJ";
+    document.getElementById("deltaUMetal").textContent = (deltaU1 / 1000).toFixed(2) + " kJ";
+    document.getElementById("deltaUAgua").textContent = (deltaU2 / 1000).toFixed(2) + " kJ";
 
-document.getElementById("deltaHMetal").className = deltaH1 < 0 ? 'negativo' : 'positivo';
-document.getElementById("deltaHAgua").className = deltaH2 < 0 ? 'negativo' : 'positivo';
-document.getElementById("deltaUMetal").className = deltaU1 < 0 ? 'negativo' : 'positivo';
-document.getElementById("deltaUAgua").className = deltaU2 < 0 ? 'negativo' : 'positivo';
+    document.getElementById("deltaHMetal").className = deltaH1 < 0 ? 'negativo' : 'positivo';
+    document.getElementById("deltaHAgua").className = deltaH2 < 0 ? 'negativo' : 'positivo';
+    document.getElementById("deltaUMetal").className = deltaU1 < 0 ? 'negativo' : 'positivo';
+    document.getElementById("deltaUAgua").className = deltaU2 < 0 ? 'negativo' : 'positivo';
 
-
-    // Mostrar resultados
     document.getElementById("outputSection").style.display = "block";
   });
 </script>
